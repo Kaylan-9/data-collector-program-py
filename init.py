@@ -31,7 +31,9 @@ class Collect:
       docs.forEach((doc) => {names.push(doc.innerHTML)})
       return names;
     }""")    
-    print(friends_list)
+    self.data["D1"] = 'amigos'
+    for index in range(len(friends_list)):
+      self.data["D"+str(index+2)] = friends_list[index]
 
 def login(page):
   useremail = os.environ.get('EMA')
