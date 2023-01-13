@@ -13,6 +13,7 @@ class Collect:
     self.page.locator('xpath=/html/body/div[1]/div[1]/div[1]/div/div[2]/div[4]/div[1]/span').click()
     self.page.locator('xpath=/html/body/div[1]/div[1]/div[1]/div/div[2]/div[4]/div[2]/div/div/div[1]/div[1]/div/div/div/div/div/div/div/div/div[1]/div/div/div[1]/div[1]/div/a').click()
     self.page.locator('xpath=/html/body/div[1]/div[1]/div[1]/div/div[3]/div/div/div/div[1]/div[1]/div/div/div[3]/div/div/div/div[1]/div/div/div[1]/div/div/div/div/div/div/a[2]').click()
+
   def set_relationship_status(self):
     self.data["A1"] = 'status de relacionamento'
     self.data["A2"] = self.page.locator('xpath=/html/body/div[1]/div[1]/div[1]/div/div[3]/div/div/div/div[1]/div[1]/div/div/div[4]/div/div/div/div[1]/div/div/div/div/div[2]/div/div/div/div[6]/div/div/div[1]/div/div[2]/div/span').text_content()
@@ -23,7 +24,11 @@ class Collect:
   def set_date_birthday(self):
     self.data["C1"] = 'data de aniversário'
     self.data["C2"] = self.page.locator('xpath=/html/body/div[1]/div[1]/div[1]/div/div[3]/div/div/div/div[1]/div[1]/div/div/div[4]/div/div/div/div[1]/div/div/div/div/div[2]/div/div/div/div[3]/div[3]/div/div/div[1]/div/div[2]/div[1]/div[1]/div/div/div[1]/span').text_content()
-    
+  def friends_list(self):
+    friends_list = self.page.evaluate("""() => {
+      return document.querySelectorAll("div > div.x9f619.x1n2onr6.x1ja2u2z > div > div > div > div.x78zum5.xdt5ytf.x10cihs4.x1t2pt76.x1n2onr6.x1ja2u2z > div.x78zum5.xdt5ytf.x1t2pt76 > div > div > div.x6s0dn4.x78zum5.xdt5ytf.x193iq5w > div > div > div > div:nth-child(2) > div > div > div > div > div:nth-child(3) > div > div > div.x1iyjqo2.x1pi30zi > div:nth-child(1) > a > span");
+    }""")    
+    print(friends_list)
 
 def login(page):
   useremail = os.environ.get('EMA')
@@ -43,7 +48,7 @@ def create_spreadsheet(data):
 
 def init(p):
   url = os.environ.get('URL')
-  browser = p.chromium.launch()
+  browser = p.chromium.launch(headless=False)
   page = browser.new_page()
   page.goto(url)
   login(page)
@@ -52,6 +57,7 @@ def init(p):
   collect.set_relationship_status()
   collect.set_sexual_gender()
   collect.set_date_birthday()
+  collect.friends_list()
   create_spreadsheet(collect.data)
 
   browser.close()
