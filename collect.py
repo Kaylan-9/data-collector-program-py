@@ -53,25 +53,17 @@ def create_spreadsheet(data):
 
 def init(p):
   url = os.environ.get('URL')
-  browser = p.chromium.launch(headless=False)
+  browser = p.chromium.launch()
   page = browser.new_page()
   page.goto(url)
   login(page)
-
   collect = Collect(page)
   collect.set_relationship_status()
   collect.set_sexual_gender()
   collect.set_date_birthday()
   collect.friends_list()
   create_spreadsheet(collect.data)
-
   browser.close()
-
-with sync_playwright() as p:
-  try:
-    init(p)
-  except ValueError:
-    print(ValueError)
 
 
 
