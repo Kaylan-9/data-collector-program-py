@@ -35,9 +35,9 @@ class Collect:
     for index in range(len(friends_list)):
       self.data["D"+str(index+2)] = friends_list[index]
 
-def login(page):
-  useremail = os.environ.get('EMA')
-  password = os.environ.get('PAS')
+def login(page, data_user):
+  useremail = data_user.get('email')
+  password = data_user.get('password')
   page.locator('xpath=//*[@id="email"]').fill(useremail)
   page.locator('xpath=//*[@id="pass"]').fill(password)
   page.locator('xpath=/html/body/div[1]/div[1]/div[1]/div/div/div/div[2]/div/div[1]/form/div[2]/button').click()
@@ -51,12 +51,12 @@ def create_spreadsheet(data):
       ws[key].fill = PatternFill(bgColor="FFC7CE", fill_type = "solid")
   wb.save("data.xlsx")
 
-def init(p):
-  url = os.environ.get('URL')
-  browser = p.chromium.launch()
+def init(p, data_user):
+  url = "https://pt-br.facebook.com/"
+  browser = p.chromium.launch(headless=False)
   page = browser.new_page()
   page.goto(url)
-  login(page)
+  login(page, data_user)
   collect = Collect(page)
   collect.set_relationship_status()
   collect.set_sexual_gender()
