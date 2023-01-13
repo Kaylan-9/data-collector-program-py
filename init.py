@@ -26,7 +26,10 @@ class Collect:
     self.data["C2"] = self.page.locator('xpath=/html/body/div[1]/div[1]/div[1]/div/div[3]/div/div/div/div[1]/div[1]/div/div/div[4]/div/div/div/div[1]/div/div/div/div/div[2]/div/div/div/div[3]/div[3]/div/div/div[1]/div/div[2]/div[1]/div[1]/div/div/div[1]/span').text_content()
   def friends_list(self):
     friends_list = self.page.evaluate("""() => {
-      return document.querySelectorAll("div > div.x9f619.x1n2onr6.x1ja2u2z > div > div > div > div.x78zum5.xdt5ytf.x10cihs4.x1t2pt76.x1n2onr6.x1ja2u2z > div.x78zum5.xdt5ytf.x1t2pt76 > div > div > div.x6s0dn4.x78zum5.xdt5ytf.x193iq5w > div > div > div > div:nth-child(2) > div > div > div > div > div:nth-child(3) > div > div > div.x1iyjqo2.x1pi30zi > div:nth-child(1) > a > span");
+      var names = [];
+      var docs = document.querySelectorAll("div > div.x9f619.x1n2onr6.x1ja2u2z > div > div > div > div.x78zum5.xdt5ytf.x10cihs4.x1t2pt76.x1n2onr6.x1ja2u2z > div.x78zum5.xdt5ytf.x1t2pt76 > div > div > div.x6s0dn4.x78zum5.xdt5ytf.x193iq5w > div > div > div > div:nth-child(2) > div > div > div > div > div:nth-child(3) > div > div > div.x1iyjqo2.x1pi30zi > div:nth-child(1) > a > span");
+      docs.forEach((doc) => {names.push(doc.innerHTML)})
+      return names;
     }""")    
     print(friends_list)
 
