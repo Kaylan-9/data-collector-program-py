@@ -16,14 +16,23 @@ class Collect:
 
   def set_relationship_status(self):
     self.data["A1"] = 'status de relacionamento'
-    self.data["A2"] = self.page.locator('xpath=/html/body/div[1]/div[1]/div[1]/div/div[3]/div/div/div/div[1]/div[1]/div/div/div[4]/div/div/div/div[1]/div/div/div/div/div[2]/div/div/div/div[6]/div/div/div[1]/div/div[2]/div/span').text_content()
+    try:
+      self.data["A2"] = self.page.locator('xpath=/html/body/div[1]/div[1]/div[1]/div/div[3]/div/div/div/div[1]/div[1]/div/div/div[4]/div/div/div/div[1]/div/div/div/div/div[2]/div/div/div/div[6]/div/div/div[1]/div/div[2]/div/span').text_content()
+    except:
+      pass
   def set_sexual_gender(self):
     self.page.locator('xpath=/html/body/div[1]/div[1]/div[1]/div/div[3]/div/div/div/div[1]/div[1]/div/div/div[4]/div/div/div/div[1]/div/div/div/div/div[1]/div[5]/a').click()
     self.data["B1"] = 'gênero sexual'
-    self.data["B2"] = self.page.locator('xpath=/html/body/div[1]/div[1]/div[1]/div/div[3]/div/div/div/div[1]/div[1]/div/div/div[4]/div/div/div/div[1]/div/div/div/div/div[2]/div/div/div/div[3]/div[2]/div/div/div[1]/div/div[2]/div/div[1]/div/div/div[1]/span').text_content()
+    try:
+      self.data["B2"] = self.page.locator('xpath=/html/body/div[1]/div[1]/div[1]/div/div[3]/div/div/div/div[1]/div[1]/div/div/div[4]/div/div/div/div[1]/div/div/div/div/div[2]/div/div/div/div[3]/div[2]/div/div/div[1]/div/div[2]/div/div[1]/div/div/div[1]/span').text_content()
+    except:
+      pass
   def set_date_birthday(self):
     self.data["C1"] = 'data de aniversário'
-    self.data["C2"] = self.page.locator('xpath=/html/body/div[1]/div[1]/div[1]/div/div[3]/div/div/div/div[1]/div[1]/div/div/div[4]/div/div/div/div[1]/div/div/div/div/div[2]/div/div/div/div[3]/div[3]/div/div/div[1]/div/div[2]/div[1]/div[1]/div/div/div[1]/span').text_content()
+    try:
+      self.data["C2"] = self.page.locator('xpath=/html/body/div[1]/div[1]/div[1]/div/div[3]/div/div/div/div[1]/div[1]/div/div/div[4]/div/div/div/div[1]/div/div/div/div/div[2]/div/div/div/div[3]/div[3]/div/div/div[1]/div/div[2]/div[1]/div[1]/div/div/div[1]/span').text_content()
+    except:
+      pass
   def friends_list(self):
     friends_list = self.page.evaluate("""() => {
       var names = [];
