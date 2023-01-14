@@ -84,8 +84,6 @@ class App(tk.Frame):
     self.label_status = Label(self)
     self.label_status.grid(column=1, row=5)
     self.label_status.config(
-      fg = "white",
-      text = "Aguardando resposta ...",
       bg= "#1C1C1C",
       font = ("Arial", 18, "bold"),
       pady=40
@@ -103,8 +101,9 @@ class App(tk.Frame):
     with sync_playwright() as p:
       try:
         init(p, self.data_user)
-      except ValueError:
-        print(ValueError)
+        self.update_status("#00FA9A", "Arquivo de planilha gerado com sucesso!")
+      except ValueError as error:
+        self.update_status("red", "Erro de login ?@!#")
 
 
 mywindow = Tk()

@@ -56,12 +56,23 @@ def init(p, data_user):
   browser = p.chromium.launch(headless=False)
   page = browser.new_page()
   page.goto(url)
-  login(page, data_user)
-  collect = Collect(page)
-  collect.set_relationship_status()
-  collect.set_sexual_gender()
-  collect.set_date_birthday()
-  collect.friends_list()
+  fetch_data = True
+  try:
+    login(page, data_user)
+    collect = Collect(page)
+  except:
+    raise ValueError('login error')
+    fetch_data = False
+
+  if(fetch_data==True):
+    try:
+      collect.set_relationship_status()
+      collect.set_sexual_gender()
+      collect.set_date_birthday()
+      collect.friends_list()
+    except:
+      raise  ValueError('other error')
+
   create_spreadsheet(collect.data)
   browser.close()
 
